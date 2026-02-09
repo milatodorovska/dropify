@@ -1,0 +1,45 @@
+  version: "3.8"
+
+  services:
+    mysql:
+      image: mysql:8.0
+      container_name: dropify-mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: rootpassword
+        MYSQL_DATABASE: dropify
+        MYSQL_USER: dropify
+        MYSQL_PASSWORD: dropifypassword
+      ports:
+        - "3306:3306"
+      networks:
+        - dropify-network
+
+    backend:
+      image: dropify-backend
+      container_name: dropify-backend
+      build: ./backend
+      ports:
+        - "8080:8080"
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://dropify-mysql:3306/dropify
+        SPRING_DATASOURCE_USERNAME: dropify
+        SPRING_DATASOURCE_PASSWORD: dropifypassword
+      depends_on:
+        - mysql
+      networks:
+        - dropify-network
+
+    frontend:
+      image: dropify-frontend
+      container_name: dropify-frontend
+      build: ./frontend
+      ports:
+        - "3000:80"
+      depends_on:
+        - backend
+      networks:
+        - dropify-network
+
+  networks:
+    dropify-network:
+      driver: bridge

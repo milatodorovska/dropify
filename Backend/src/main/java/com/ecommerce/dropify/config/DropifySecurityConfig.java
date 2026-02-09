@@ -30,22 +30,20 @@ public class DropifySecurityConfig {
     @Autowired
     JwtAuthenticationFilter filter;
 
-
-    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-            
-            // Apply the CORS configuration
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        // Apply the CORS configuration
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
-            .httpBasic(httpBasic -> {});
+                .httpBasic(httpBasic -> {});
 
         return http.build();
     }
