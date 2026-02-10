@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dropify-backend
+  namespace: dropify
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dropify-backend
+  template:
+    metadata:
+      labels:
+        app: dropify-backend
+    spec:
+      containers:
+      - name: backend
+        image: milatodorovska/dropify-backend:latest
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: app-config
