@@ -28,7 +28,7 @@ jobs:
       # BACKEND
       - name: Build Backend Docker image
         run: |
-          docker build -t $DOCKERHUB_USERNAME/dropify-backend:latest ./backend
+          docker build -t $DOCKERHUB_USERNAME/dropify-backend:latest ./Backend
 
       - name: Push Backend Docker image
         if: github.ref == 'refs/heads/main'
@@ -38,7 +38,7 @@ jobs:
       # FRONTEND
       - name: Build Frontend Docker image
         run: |
-          docker build -t $DOCKERHUB_USERNAME/dropify-frontend:latest ./frontend
+          docker build -t $DOCKERHUB_USERNAME/dropify-frontend:latest ./Frontend
 
       - name: Push Frontend Docker image
         if: github.ref == 'refs/heads/main'
