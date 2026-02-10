@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dropify-frontend
+  namespace: dropify
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dropify-frontend
+  template:
+    metadata:
+      labels:
+        app: dropify-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: milatodorovska/dropify-frontend:latest
+        ports:
+        - containerPort: 80
