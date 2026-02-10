@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN chmod +x node_modules/.bin/react-scripts && npm run build
 
 FROM nginx:alpine
 
